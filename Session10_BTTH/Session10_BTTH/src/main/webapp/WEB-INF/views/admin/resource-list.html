@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Quản lý thiết bị</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-4">
+<h2>Quản lý danh sách thiết bị / phòng Lab</h2>
+
+<div class="mb-3">
+    <a class="btn btn-success" th:href="@{/admin/resources/new}">+ Thêm mới</a>
+    <a class="btn btn-outline-dark" th:href="@{/admin/requests}">Xem yêu cầu mượn</a>
+</div>
+
+<table class="table table-bordered align-middle">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên</th>
+        <th>Ảnh</th>
+        <th>Tồn kho</th>
+        <th>Loại</th>
+        <th width="220">Hành động</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="it : ${items}">
+        <td th:text="${it.id}"></td>
+        <td th:text="${it.name}"></td>
+        <td><img th:src="${it.imageUrl}" alt="img" style="width:100px;height:60px;object-fit:cover"></td>
+        <td th:text="${it.availableQuantity}"></td>
+        <td th:text="${it.type}"></td>
+        <td>
+            <a class="btn btn-primary btn-sm" th:href="@{/admin/resources/edit/{id}(id=${it.id})}">Sửa</a>
+            <form th:action="@{/admin/resources/delete/{id}(id=${it.id})}" method="post" style="display:inline">
+                <button class="btn btn-danger btn-sm" onclick="return confirm('Bạn chắc chắn muốn xóa?')">Xóa</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

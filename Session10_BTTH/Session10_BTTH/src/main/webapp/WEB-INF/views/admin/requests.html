@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách yêu cầu mượn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-4">
+<h2>Danh sách yêu cầu mượn (Admin)</h2>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Họ tên</th>
+        <th>Mã SV</th>
+        <th>Email</th>
+        <th>Thiết bị/Phòng</th>
+        <th>Số lượng</th>
+        <th>Ngày nhận</th>
+        <th>Ngày trả</th>
+        <th>Lý do</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="r : ${requests}">
+        <td th:text="${r.fullName}"></td>
+        <td th:text="${r.studentCode}"></td>
+        <td th:text="${r.email}"></td>
+        <td th:text="${resourceStore[r.resourceId].name}"></td>
+        <td th:text="${r.quantity}"></td>
+        <td th:text="${r.borrowDate}"></td>
+        <td th:text="${r.returnDate}"></td>
+        <td th:text="${r.reason}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a class="btn btn-primary" th:href="@{/student/resources}">Về trang sinh viên</a>
+</body>
+</html>

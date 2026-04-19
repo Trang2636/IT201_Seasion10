@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.13.2'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    // Servlet API cho compile-time (không đóng gói vào WAR)
+    compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    implementation("org.springframework:spring-webmvc:6.1.14")
+    implementation("org.thymeleaf:thymeleaf-spring6:3.1.3.RELEASE")
+    implementation("org.hibernate.validator:hibernate-validator:8.0.1.Final")
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
